@@ -10,7 +10,7 @@ import { StarterPromptBubble } from './bubbles/StarterPromptBubble';
 import { BotMessageTheme, TextInputTheme, UserMessageTheme } from '@/features/bubble/types';
 import { Badge } from './Badge';
 import socketIOClient from 'socket.io-client';
-import { Popup } from '@/features/popup';
+import { Popup, DisclaimerPopup } from '@/features/popup';
 import { Avatar } from '@/components/avatars/Avatar';
 import { DeleteButton, SendButton } from '@/components/buttons/SendButton';
 import { CircleDotIcon, TrashIcon } from './icons';
@@ -172,6 +172,8 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   const [loading, setLoading] = createSignal(false);
   const [sourcePopupOpen, setSourcePopupOpen] = createSignal(false);
   const [sourcePopupSrc, setSourcePopupSrc] = createSignal({});
+  const [disclaimerPopupOpen, setDisclaimerPopupOpen] = createSignal(false);
+  const [isDisclaimerPopupAccepted, setIsDisclaimerPopupAccepted] = createSignal(false);
   const [messages, setMessages] = createSignal<MessageType[]>(
     [
       {
@@ -284,8 +286,19 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     scrollToBottom();
   };
 
+  const handleDisclaimerAccept = () => {
+    setDisclaimerPopupOpen(false); // Close the disclaimer popup
+    setIsDisclaimerPopupAccepted(true); // Disclaimer accepted
+    handleSubmit(userInput()); // continue the user submit
+  };
+
   const promptClick = (prompt: string) => {
-    handleSubmit(prompt);
+    if (isDisclaimerPopupAccepted()) {
+      handleSubmit(prompt);
+    } else {
+      setDisclaimerPopupOpen(true);
+      setUserInput(prompt);
+    }
   };
 
   // Handle form submission
@@ -1002,6 +1015,9 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
         </div>
       </div>
       {sourcePopupOpen() && <Popup isOpen={sourcePopupOpen()} value={sourcePopupSrc()} onClose={() => setSourcePopupOpen(false)} />}
+      {disclaimerPopupOpen() && (
+        <DisclaimerPopup isOpen={disclaimerPopupOpen()} onAccept={handleDisclaimerAccept} onDecline={() => setDisclaimerPopupOpen(false)} />
+      )}
     </>
   );
 };
