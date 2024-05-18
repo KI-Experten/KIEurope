@@ -69,7 +69,6 @@ export const ThumbsDownButton = (props: RatingButtonProps) => {
   );
 };
 
-
 export const InfoButton = (props: RatingButtonProps) => {
   return (
     <button
