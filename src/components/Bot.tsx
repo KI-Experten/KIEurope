@@ -434,7 +434,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   const openChatManual = () => {
     try {
-      window.open('https://google.com', '_blank');
+      window.open('https://kiexperten-ai.de', '_blank');
     } catch (error: any) {
       const errorData = error.response.data || `${error.response.status}: ${error.response.statusText}`;
       console.error(`error: ${errorData}`);
@@ -815,13 +815,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
               <span class="px-3 whitespace-pre-wrap font-semibold max-w-full">{props.title}</span>
             </Show>
             <div style={{ flex: 1 }} />
-            <InfoButton
-              sendButtonColor={props.bubbleTextColor}
-              type="button"
-              isDisabled={false}
-              class="my-2 ml-2"
-              on:click={openChatManual}
-            >
+            <InfoButton sendButtonColor={props.bubbleTextColor} type="button" isDisabled={false} class="my-2 ml-2" on:click={openChatManual}>
               <span style={{ 'font-family': 'Poppins, sans-serif' }}>How To Chat</span>
             </InfoButton>
             <DeleteButton
