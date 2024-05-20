@@ -303,6 +303,12 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   // Handle form submission
   const handleSubmit = async (value: string) => {
+    if (!isDisclaimerPopupAccepted()) {
+      setDisclaimerPopupOpen(true);
+      setUserInput(value);
+      return;
+    }
+
     setUserInput(value);
 
     if (value.trim() === '') {
