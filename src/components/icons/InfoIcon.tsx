@@ -7,13 +7,13 @@ export const InfoIcon = (props: JSX.SvgSVGAttributes<SVGSVGElement>) => (
     height="24"
     viewBox="0 0 24 24"
     stroke-width="2"
-    stroke="black"
+    stroke={props.color ?? defaultButtonColor}
     fill="none"
     stroke-linecap="round"
     stroke-linejoin="round"
   >
     <circle cx="12" cy="12" r="10" />
-    <text x="11" y="16" font-size="12" font-family="Arial" fill="black">
+    <text x="11" y="16" font-size="12" font-family="Arial" fill="none">
       i
     </text>
   </svg>
