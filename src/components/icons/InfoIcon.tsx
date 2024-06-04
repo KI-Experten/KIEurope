@@ -14,7 +14,7 @@ export const InfoIcon = (props: JSX.SvgSVGAttributes<SVGSVGElement>) => (
   >
     <circle cx="12" cy="12" r="10" />
     <text x="11" y="16" font-size="12" font-family="Arial" fill="none">
-      i
+      ?
     </text>
   </svg>
 );
