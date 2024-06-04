@@ -1,3 +1,4 @@
+import '../../../assets/index.css';
 export type DisclaimerPopupProps = {
     isOpen?: boolean;
     onAccept?: () => void;
