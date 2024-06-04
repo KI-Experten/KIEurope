@@ -1,5 +1,6 @@
 // DisclaimerPopup.tsx
 import { createSignal, createEffect, onMount, Show, splitProps } from 'solid-js';
+import '../../../assets/index.css';
 
 export type DisclaimerPopupProps = {
   isOpen?: boolean;
@@ -20,12 +21,18 @@ export const DisclaimerPopup = (props: DisclaimerPopupProps) => {
 
   return (
     <Show when={popupProps.isOpen}>
-      <div>
-        <div>
+      <div class="popup-overlay">
+        <div class="popup-content">
           <h2>Disclaimer</h2>
-          <p>This is your disclaimer content.</p>
-          <button onClick={handleAccept}>Accept</button>
-          <button onClick={handleDecline}>Decline</button>
+          <p>Stimmen Sie unserer Datenschutzerklärung zu?</p>
+          <div class="popup-buttons">
+            <button class="popup-button accept" onClick={handleAccept}>
+              Ja
+            </button>
+            <button class="popup-button decline" onClick={handleDecline}>
+              Nein
+            </button>
+          </div>
         </div>
       </div>
     </Show>
