@@ -136,6 +136,14 @@ You can also customize chatbot with different configuration
           textColor: '#303235',
           sendButtonColor: '#3B81F6',
         },
+        disclaimer: {
+          title: "Disclaimer";
+          message: "Das ist der Satz für das Datenschutzerklärungs-Fenster";
+          acceptButtonText: "Ich stimme zu";
+          declineButtonText: "Ablehnen";
+          linkUrl: "https://kiexperten-ai.de/datenschutzerklaerung/";
+          linkText?: "Siehe mehr über unsere Datenschutzerklärung";
+        }
       },
     },
   });

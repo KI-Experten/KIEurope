@@ -7,7 +7,7 @@ import { BotBubble } from './bubbles/BotBubble';
 import { LoadingBubble } from './bubbles/LoadingBubble';
 import { SourceBubble } from './bubbles/SourceBubble';
 import { StarterPromptBubble } from './bubbles/StarterPromptBubble';
-import { BotMessageTheme, TextInputTheme, UserMessageTheme } from '@/features/bubble/types';
+import { BotMessageTheme, TextInputTheme, UserMessageTheme, DisclaimerPopUpTheme } from '@/features/bubble/types';
 import { Badge } from './Badge';
 import socketIOClient from 'socket.io-client';
 import { Popup, DisclaimerPopup } from '@/features/popup';
@@ -17,6 +17,7 @@ import { CircleDotIcon, TrashIcon } from './icons';
 import { CancelButton } from './buttons/CancelButton';
 import { cancelAudioRecording, startAudioRecording, stopAudioRecording } from '@/utils/audioRecording';
 import { InfoButton } from './buttons/FeedbackButtons';
+import { setCookie, getCookie } from './Cookies';
 
 export type FileEvent<T = EventTarget> = {
   target: T;
@@ -77,6 +78,7 @@ export type BotProps = {
   fontSize?: number;
   isFullPage?: boolean;
   observersConfig?: observersConfigType;
+  disclaimer?: DisclaimerPopUpTheme;
 };
 
 const defaultWelcomeMessage = 'Hi there! How can I help?';
@@ -173,7 +175,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   const [sourcePopupOpen, setSourcePopupOpen] = createSignal(false);
   const [sourcePopupSrc, setSourcePopupSrc] = createSignal({});
   const [disclaimerPopupOpen, setDisclaimerPopupOpen] = createSignal(false);
-  const [isDisclaimerPopupAccepted, setIsDisclaimerPopupAccepted] = createSignal(false);
   const [messages, setMessages] = createSignal<MessageType[]>(
     [
       {
@@ -288,12 +289,12 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   const handleDisclaimerAccept = () => {
     setDisclaimerPopupOpen(false); // Close the disclaimer popup
-    setIsDisclaimerPopupAccepted(true); // Disclaimer accepted
+    setCookie("chatbotDisclaimer", "true", 365); // Disclaimer accepted
     handleSubmit(userInput()); // continue the user submit
   };
 
   const promptClick = (prompt: string) => {
-    if (isDisclaimerPopupAccepted()) {
+    if (getCookie("chatbotDisclaimer") == "true") {
       handleSubmit(prompt);
     } else {
       setDisclaimerPopupOpen(true);
@@ -303,7 +304,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   // Handle form submission
   const handleSubmit = async (value: string) => {
-    if (!isDisclaimerPopupAccepted()) {
+    if (getCookie("chatbotDisclaimer") != "true") {
       setDisclaimerPopupOpen(true);
       setUserInput(value);
       return;
@@ -1016,7 +1017,17 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       </div>
       {sourcePopupOpen() && <Popup isOpen={sourcePopupOpen()} value={sourcePopupSrc()} onClose={() => setSourcePopupOpen(false)} />}
       {disclaimerPopupOpen() && (
-        <DisclaimerPopup isOpen={disclaimerPopupOpen()} onAccept={handleDisclaimerAccept} onDecline={() => setDisclaimerPopupOpen(false)} />
+        <DisclaimerPopup
+          isOpen={disclaimerPopupOpen()}
+          onAccept={handleDisclaimerAccept}
+          onDecline={() => setDisclaimerPopupOpen(false)}
+          title={props.disclaimer?.title} 
+          message={props.disclaimer?.message}
+          acceptButtonText={props.disclaimer?.acceptButtonText}
+          declineButtonText={props.disclaimer?.declineButtonText}
+          linkUrl={props.disclaimer?.linkUrl}
+          linkText={props.disclaimer?.linkText}
+        />
       )}
     </>
   );

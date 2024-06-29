@@ -51,3 +51,12 @@ export type ButtonTheme = {
   bottom?: number;
   right?: number;
 };
+
+export type DisclaimerPopUpTheme = {
+  title?: string;
+  message?: string;
+  acceptButtonText?: string;
+  declineButtonText?: string;
+  linkUrl?: string;
+  linkText?: string;
+};
