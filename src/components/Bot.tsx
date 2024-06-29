@@ -289,12 +289,12 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   const handleDisclaimerAccept = () => {
     setDisclaimerPopupOpen(false); // Close the disclaimer popup
-    setCookie("chatbotDisclaimer", "true", 365); // Disclaimer accepted
+    setCookie('chatbotDisclaimer', 'true', 365); // Disclaimer accepted
     handleSubmit(userInput()); // continue the user submit
   };
 
   const promptClick = (prompt: string) => {
-    if (getCookie("chatbotDisclaimer") == "true") {
+    if (getCookie('chatbotDisclaimer') == 'true') {
       handleSubmit(prompt);
     } else {
       setDisclaimerPopupOpen(true);
@@ -304,7 +304,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   // Handle form submission
   const handleSubmit = async (value: string) => {
-    if (getCookie("chatbotDisclaimer") != "true") {
+    if (getCookie('chatbotDisclaimer') != 'true') {
       setDisclaimerPopupOpen(true);
       setUserInput(value);
       return;
@@ -1021,7 +1021,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
           isOpen={disclaimerPopupOpen()}
           onAccept={handleDisclaimerAccept}
           onDecline={() => setDisclaimerPopupOpen(false)}
-          title={props.disclaimer?.title} 
+          title={props.disclaimer?.title}
           message={props.disclaimer?.message}
           acceptButtonText={props.disclaimer?.acceptButtonText}
           declineButtonText={props.disclaimer?.declineButtonText}

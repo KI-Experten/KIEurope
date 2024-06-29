@@ -15,7 +15,17 @@ export type DisclaimerPopupProps = {
 };
 
 export const DisclaimerPopup = (props: DisclaimerPopupProps) => {
-  const [popupProps] = splitProps(props, ['onAccept', 'onDecline', 'isOpen', 'title', 'message', 'acceptButtonText', 'declineButtonText', 'linkUrl', 'linkText']);
+  const [popupProps] = splitProps(props, [
+    'onAccept',
+    'onDecline',
+    'isOpen',
+    'title',
+    'message',
+    'acceptButtonText',
+    'declineButtonText',
+    'linkUrl',
+    'linkText',
+  ]);
 
   const handleAccept = () => {
     props.onAccept?.();
@@ -29,7 +39,7 @@ export const DisclaimerPopup = (props: DisclaimerPopupProps) => {
     <Show when={popupProps.isOpen}>
       <div class="popup-overlay">
         <div class="popup-content">
-        <h2>{popupProps.title ?? 'Disclaimer'}</h2>
+          <h2>{popupProps.title ?? 'Disclaimer'}</h2>
           <p>
             {popupProps.message ?? 'Stimmen Sie unserer Datenschutzerklärung zu?'}{' '}
             <a href={popupProps.linkUrl} target="_blank" rel="noopener noreferrer">

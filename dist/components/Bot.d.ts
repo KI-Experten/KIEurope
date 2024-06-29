@@ -1,4 +1,4 @@
-import { BotMessageTheme, TextInputTheme, UserMessageTheme } from '@/features/bubble/types';
+import { BotMessageTheme, TextInputTheme, UserMessageTheme, DisclaimerPopUpTheme } from '@/features/bubble/types';
 export type FileEvent<T = EventTarget> = {
     target: T;
 };
@@ -49,6 +49,7 @@ export type BotProps = {
     fontSize?: number;
     isFullPage?: boolean;
     observersConfig?: observersConfigType;
+    disclaimer?: DisclaimerPopUpTheme;
 };
 export declare const Bot: (botProps: BotProps & {
     class?: string;
