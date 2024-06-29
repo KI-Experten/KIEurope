@@ -142,7 +142,7 @@ You can also customize chatbot with different configuration
           acceptButtonText: "Ich stimme zu";
           declineButtonText: "Ablehnen";
           linkUrl: "https://kiexperten-ai.de/datenschutzerklaerung/";
-          linkText?: "Siehe mehr über unsere Datenschutzerklärung";
+          linkText: "Siehe mehr über unsere Datenschutzerklärung";
         }
       },
     },
