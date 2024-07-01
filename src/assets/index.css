@@ -429,7 +429,8 @@ textarea {
   align-items: center;
 }
 
-input {
+input,
+textarea {
   background-color: transparent;
   border: none;
   padding: 10px 10px;
@@ -489,4 +490,39 @@ input {
 
 .popup-button.decline:hover {
   background-color: #e53935;
+}
+
+  @media (max-width: 640px) {
+  div[part='bot'] {
+    width: 100% !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    max-width: unset !important;
+    max-height: unset !important;
+    height: 100% !important;
+    overflow: auto; 
+  }
+
+    div[part='button'], div[class='flex flex-row items-center w-full h-[50px] absolute top-0 left-0 z-10'], .chatbot-container, .rounded-lg {
+    border-radius: 0px !important;
+  }
+
+button {
+  cursor: default !important;
+}
+
+}
+.tooltip {
+  position: fixed;
+  background: var(--tooltip-background-color, black);
+  color: var(--tooltip-text-color, white);
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 42424242;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-width: calc(100vw - 20px);
+  font-size: var(--tooltip-font-size, 12px);
+  transition: opacity 0.3s ease-in-out;
 }

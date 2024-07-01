@@ -56,3 +56,59 @@ export const sendRequest = async <ResponseData>(
     return { error: e as Error };
   }
 };
+
+export const setLocalStorageChatflow = (chatflowid: string, chatId: string, saveObj: Record<string, any> = {}) => {
+  const chatDetails = localStorage.getItem(`${chatflowid}_EXTERNAL`);
+  const obj = { ...saveObj };
+  if (chatId) obj.chatId = chatId;
+
+  if (!chatDetails) {
+    localStorage.setItem(`${chatflowid}_EXTERNAL`, JSON.stringify(obj));
+  } else {
+    try {
+      const parsedChatDetails = JSON.parse(chatDetails);
+      localStorage.setItem(`${chatflowid}_EXTERNAL`, JSON.stringify({ ...parsedChatDetails, ...obj }));
+    } catch (e) {
+      const chatId = chatDetails;
+      obj.chatId = chatId;
+      localStorage.setItem(`${chatflowid}_EXTERNAL`, JSON.stringify(obj));
+    }
+  }
+};
+
+export const getLocalStorageChatflow = (chatflowid: string) => {
+  const chatDetails = localStorage.getItem(`${chatflowid}_EXTERNAL`);
+  if (!chatDetails) return {};
+  try {
+    return JSON.parse(chatDetails);
+  } catch (e) {
+    return {};
+  }
+};
+
+export const removeLocalStorageChatHistory = (chatflowid: string) => {
+  const chatDetails = localStorage.getItem(`${chatflowid}_EXTERNAL`);
+  if (!chatDetails) return;
+  try {
+    const parsedChatDetails = JSON.parse(chatDetails);
+    if (parsedChatDetails.lead) {
+      // Dont remove lead when chat is cleared
+      const obj = { lead: parsedChatDetails.lead };
+      localStorage.removeItem(`${chatflowid}_EXTERNAL`);
+      localStorage.setItem(`${chatflowid}_EXTERNAL`, JSON.stringify(obj));
+    } else {
+      localStorage.removeItem(`${chatflowid}_EXTERNAL`);
+    }
+  } catch (e) {
+    return;
+  }
+};
+
+export const getBubbleButtonSize = (size: 'small' | 'medium' | 'large' | number | undefined) => {
+  if (!size) return 48;
+  if (typeof size === 'number') return size;
+  if (size === 'small') return 32;
+  if (size === 'medium') return 48;
+  if (size === 'large') return 64;
+  return 48;
+};

@@ -5,6 +5,7 @@ export type BubbleParams = {
 export type BubbleTheme = {
   chatWindow?: ChatWindowTheme;
   button?: ButtonTheme;
+  tooltip?: ToolTipTheme;
 };
 
 export type TextInputTheme = {
@@ -12,6 +13,13 @@ export type TextInputTheme = {
   textColor?: string;
   placeholder?: string;
   sendButtonColor?: string;
+  maxChars?: number;
+  maxCharsWarningMessage?: string;
+  autoFocus?: boolean;
+  sendMessageSound?: boolean;
+  sendSoundLocation?: string;
+  receiveMessageSound?: boolean;
+  receiveSoundLocation?: string;
 };
 
 export type UserMessageTheme = {
@@ -28,11 +36,25 @@ export type BotMessageTheme = {
   avatarSrc?: string;
 };
 
+export type FooterTheme = {
+  showFooter?: boolean;
+  textColor?: string;
+  text?: string;
+  company?: string;
+  companyLink?: string;
+};
+
+export type FeedbackTheme = {
+  color?: string;
+};
+
 export type ChatWindowTheme = {
   showTitle?: boolean;
+  showAgentMessages?: boolean; // parameter to show agent reasonings when using agentflows
   title?: string;
   titleAvatarSrc?: string;
   welcomeMessage?: string;
+  errorMessage?: string;
   backgroundColor?: string;
   height?: number;
   width?: number;
@@ -40,16 +62,27 @@ export type ChatWindowTheme = {
   userMessage?: UserMessageTheme;
   botMessage?: BotMessageTheme;
   textInput?: TextInputTheme;
+  feedback?: FeedbackTheme;
+  footer?: FooterTheme;
   poweredByTextColor?: string;
 };
 
 export type ButtonTheme = {
-  size?: 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | number; // custom size of chatbot in pixels
   backgroundColor?: string;
   iconColor?: string;
   customIconSrc?: string;
   bottom?: number;
   right?: number;
+  dragAndDrop?: boolean; // parameter to enable drag and drop(true or false)
+};
+
+export type ToolTipTheme = {
+  showTooltip?: boolean; // parameter to enable tooltip(true or false)
+  tooltipMessage?: string;
+  tooltipBackgroundColor?: string;
+  tooltipTextColor?: string;
+  tooltipFontSize?: number;
 };
 
 export type DisclaimerPopUpTheme = {
